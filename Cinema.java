@@ -4,12 +4,16 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Cinema {
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner SC = new Scanner(System.in);
+    static final int MAX_COAST = 10;
+    static final int MIN_COAST = 8;
+    static final int EXCESS_THRESHOLD = 60;
+
     public static void main(String[] args) {
         System.out.println("Enter the number of rows:");
-        int rows = sc.nextInt();
+        int rows = SC.nextInt();
         System.out.println("Enter the number of seats in each row:");
-        int numSeats = sc.nextInt();
+        int numSeats = SC.nextInt();
 
         char[][] room = new char[rows][numSeats];
         // Write your code here
@@ -50,15 +54,14 @@ public class Cinema {
     private static void calculateProfit(int rows, int numSeats) {
         int totalSeats = rows * numSeats;
         int profit = 0;
-        int maxCost = 10;
-        int minCost = 8;
         int frontRows, backRows;
-        if (totalSeats < 60) {
-            profit = totalSeats * maxCost;
+
+        if (totalSeats < EXCESS_THRESHOLD) {
+            profit = totalSeats * MAX_COAST;
         } else {
             frontRows = rows / 2;
             backRows = rows - frontRows;
-            profit = (frontRows * numSeats * maxCost) + (backRows * numSeats * minCost);
+            profit = (frontRows * numSeats * MAX_COAST) + (backRows * numSeats * MIN_COAST);
         }
         System.out.println("Total income:");
         System.out.println("$" + profit);
@@ -66,24 +69,14 @@ public class Cinema {
 
     private static void ticketPrice(int rows, int numSeats, char[][] room) {
         System.out.println("Enter a row number:");
-        int userRow = sc.nextInt();
+        int userRow = SC.nextInt();
         System.out.println("Enter a seat number in that row:");
-        int userSeat = sc.nextInt();
+        int userSeat = SC.nextInt();
         room[userRow - 1][userSeat - 1] = 'B';
 
         int totalSeats = rows * numSeats;
-        int maxCost = 10;
-        int minCost = 8;
-        int frontRows;
-        int price = totalSeats <= 60 || userRow <= rows / 2 ? 10 : 8;
-//        if (totalSeats < 60) {
-//            price = String.format("Ticket price: $%d", maxCost);
-//        } else {
-//            frontRows = rows / 2;
-//            price = userRow <= frontRows
-//                    ? String.format("Ticket price: $%d", maxCost)
-//                    : String.format("Ticket price: $%d", minCost);
-//        }
+
+        int price = totalSeats <= EXCESS_THRESHOLD || userRow <= rows / 2 ? MAX_COAST : MIN_COAST;
         System.out.println();
         System.out.println("Ticket price: $" + price);
     }
