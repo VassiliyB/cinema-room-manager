@@ -75,8 +75,9 @@ public class Cinema {
         room[userRow - 1][userSeat - 1] = 'B';
 
         int totalSeats = rows * numSeats;
+        int frontSeats = rows / 2;
 
-        int price = totalSeats <= EXCESS_THRESHOLD || userRow <= rows / 2 ? MAX_COAST : MIN_COAST;
+        int price = totalSeats <= EXCESS_THRESHOLD || userRow <= frontSeats ? MAX_COAST : MIN_COAST;
         System.out.println();
         System.out.println("Ticket price: $" + price);
     }
