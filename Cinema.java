@@ -53,8 +53,7 @@ public class Cinema {
 
     private static void calculateProfit(int rows, int numSeats) {
         int totalSeats = rows * numSeats;
-        int profit = 0;
-        int frontRows, backRows;
+        int profit, frontRows, backRows;
 
         if (totalSeats < EXCESS_THRESHOLD) {
             profit = totalSeats * MAX_COAST;
