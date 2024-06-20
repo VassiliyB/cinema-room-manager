@@ -14,14 +14,26 @@ public class Cinema {
         int rows = SC.nextInt();
         System.out.println("Enter the number of seats in each row:");
         int numSeats = SC.nextInt();
+        boolean flag = true;
 
         char[][] room = new char[rows][numSeats];
-        // Write your code here
         initArray(room);
-        printSeats(room);
-//        calculateProfit(rows, numSeats);
-        ticketPrice(rows, numSeats, room);
-        printSeats(room);
+
+        while (flag) {
+            System.out.println();
+            System.out.println("1. Show the seats");
+            System.out.println("2. Buy a ticket");
+            System.out.println("0. Exit");
+            int menu = SC.nextInt();
+            switch (menu) {
+                case 1 -> printSeats(room);
+                case 2 -> ticketPrice(rows, numSeats, room);
+                case 0 -> flag = false;
+            }
+        }
+//        printSeats(room);
+//        ticketPrice(rows, numSeats, room);
+//        printSeats(room);
     }
 
     private static void initArray(char[][] room) {
@@ -67,6 +79,7 @@ public class Cinema {
     }
 
     private static void ticketPrice(int rows, int numSeats, char[][] room) {
+        System.out.println();
         System.out.println("Enter a row number:");
         int userRow = SC.nextInt();
         System.out.println("Enter a seat number in that row:");
@@ -77,7 +90,6 @@ public class Cinema {
         int frontSeats = rows / 2;
 
         int price = totalSeats <= EXCESS_THRESHOLD || userRow <= frontSeats ? MAX_COAST : MIN_COAST;
-        System.out.println();
         System.out.println("Ticket price: $" + price);
     }
 }
